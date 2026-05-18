@@ -27,11 +27,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
+      data-theme='light'
       lang="en"
-      className={`h-full antialiased`}
+      className={`${inter.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <header>
+      <body className="min-h-full flex flex-col text-foreground">
+        <header className="shadow-sm fixed w-full bg-background">
           <Navbar />
         </header>
         <main>
