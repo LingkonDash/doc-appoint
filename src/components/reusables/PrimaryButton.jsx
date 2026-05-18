@@ -14,8 +14,7 @@ const PrimaryButton = ({
     relative
     overflow-hidden
 
-    px-6
-    py-5
+    p-5
 
     rounded-2xl
     border border-white/10

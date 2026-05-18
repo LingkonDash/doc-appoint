@@ -14,8 +14,7 @@ const SecondaryButton = ({
     relative
     overflow-hidden
 
-    px-6
-    py-5
+    p-5
 
     rounded-xl
     border

@@ -1,0 +1,43 @@
+import React from 'react';
+import PrimaryButton from '../reusables/PrimaryButton';
+import SecondaryButton from '../reusables/SecondaryButton';
+import { MoveUpRight, Search } from 'lucide-react';
+import { Separator } from '@heroui/react';
+import Image from 'next/image';
+import avatar from '@/images/avatar.png';
+
+const Banner = () => {
+  return (
+    <div className='pt-10 bg-linear-to-t from-secondary to-white text-primary px-5 md:px-10 lg:px-15'>
+      <div className='grid md:grid-cols-2 max-w-380 mx-auto'>
+        <div className='space-y-6 pb-5 place-self-end'>
+          <div className='text-center md:text-left space-y-4'>
+            <h1 className={`text-5xl lg:text-6xl font-medium leading-none`}>Your Health <br />Deserves the right specialist</h1>
+
+            <p className='text-lg lg:text-xl font-medium text-primary/70'>Connect with top rated doctors who listen and prioritize your health journey</p>
+          </div>
+          <div className='flex justify-center md:justify-start items-center gap-4'>
+            <PrimaryButton href={'/appointments'} className='py-6'><div className='flex justify-center items-center gap-2'><Search />Find A Doctor</div></PrimaryButton>
+            <SecondaryButton className='py-6'><div className='flex justify-center items-center gap-2'><MoveUpRight />How it Works</div></SecondaryButton>
+          </div>
+          <div className='flex lg:pr-20 justify-center md:justify-start items-center text-center gap-2 text-primary/90 [&_h2]:font-semibold [&_p]:text-primary/70 [&_p]:text-[14px]'>
+            <div>
+              <h2>Free checkup</h2>
+              <p>Comprehensive evaluation with no upfront cost. Limited time offer.</p>
+            </div>
+            <Separator orientation="vertical" variant='tertiary' />
+            <div>
+              <h2>Custom Treatment Plan</h2>
+              <p>From Diagnosis to recovery, we map every step for your unique needs</p>
+            </div>
+          </div>
+        </div>
+        <div className='mx-auto w-fit place-self-end justify-self-'>
+          <Image src={avatar} alt='Doctor Natasha' height={500} width={500} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Banner;

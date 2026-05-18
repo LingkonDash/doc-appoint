@@ -15,7 +15,7 @@ const navRoutes = [
 const Navbar = () => {
 
   return (
-    <nav className="relative flex justify-between items-center py-3 px-5 max-w-6xl mx-auto">
+    <nav className="relative flex justify-between items-center py-3 px-5 max-w-400 mx-auto">
 
       <div className="flex items-center gap-2">
         <Image src={logo} alt="Logo" height={40} width={40} />
@@ -33,7 +33,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         <SecondaryButton href="/login" className='hidden md:flex'>Login</SecondaryButton>
         <PrimaryButton href="/register" className='hidden md:flex'>Register</PrimaryButton>
-        
+
         {/* Mobile Navigation */}
         <MobileNavigation navRoutes={navRoutes} />
       </div>
