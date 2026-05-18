@@ -15,7 +15,7 @@ const navRoutes = [
 const Navbar = () => {
 
   return (
-    <nav className="relative flex justify-between items-center py-3 px-5 max-w-400 mx-auto">
+    <nav className="relative flex justify-between items-center py-3 px-5 lg:px-8 max-w-400 mx-auto">
 
       <div className="flex items-center gap-2">
         <Image src={logo} alt="Logo" height={40} width={40} />

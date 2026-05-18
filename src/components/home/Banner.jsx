@@ -1,7 +1,7 @@
 import React from 'react';
 import PrimaryButton from '../reusables/PrimaryButton';
 import SecondaryButton from '../reusables/SecondaryButton';
-import { MoveUpRight, Search } from 'lucide-react';
+import { CalendarCheck, Search } from 'lucide-react';
 import { Separator } from '@heroui/react';
 import Image from 'next/image';
 import avatar from '@/images/avatar.png';
@@ -18,7 +18,7 @@ const Banner = () => {
           </div>
           <div className='flex justify-center md:justify-start items-center gap-4'>
             <PrimaryButton href={'/appointments'} className='py-6'><div className='flex justify-center items-center gap-2'><Search />Find A Doctor</div></PrimaryButton>
-            <SecondaryButton className='py-6'><div className='flex justify-center items-center gap-2'><MoveUpRight />How it Works</div></SecondaryButton>
+            <SecondaryButton href={'/dashboard'} className='py-6'><div className='flex justify-center items-center gap-2'><CalendarCheck />My Bookings</div></SecondaryButton>
           </div>
           <div className='flex lg:pr-20 justify-center md:justify-start items-center text-center gap-2 text-primary/90 [&_h2]:font-semibold [&_p]:text-primary/70 [&_p]:text-[14px]'>
             <div>
