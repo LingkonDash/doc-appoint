@@ -23,7 +23,6 @@ const SearchDoctors = ({ initialData }) => {
 
   return (
     <div>
-      {/* Search bar */}
       <div className="relative max-w-xl mx-auto mb-10">
         <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(36,59,66,0.4)" }} />
         <input
@@ -40,9 +39,8 @@ const SearchDoctors = ({ initialData }) => {
         />
       </div>
 
-      {/* Results count */}
       <p
-        className="text-[12px] mb-6 text-center"
+        className="text-[12px] mb-10 text-center"
         style={{ color: "rgba(13,13,13,0.4)" }}
       >
         {results.length} doctor{results.length !== 1 ? "s" : ""} found
@@ -51,7 +49,6 @@ const SearchDoctors = ({ initialData }) => {
         )}
       </p>
 
-      {/* Grid */}
       {results.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {results.map((doc) => (

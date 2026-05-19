@@ -9,7 +9,7 @@ const DoctorCard = ({ data }) => {
   return (
     <div className=" rounded-[22px] overflow-hidden shrink-0 shadow-md group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
 
-      {/* ── Top: full-bleed image ── */}
+
       <div className="relative w-full h-65">
         <Image
           src={image || "/fallback-doctor.jpg"}
@@ -18,7 +18,7 @@ const DoctorCard = ({ data }) => {
           className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
           sizes="260px"
         />
-        {/* Rating badge */}
+        
         <div
           className="absolute top-3 right-3 flex items-center gap-1 text-[12px] font-semibold px-2.5 py-1 rounded-full bg-primary/80"
           style={{
@@ -32,10 +32,8 @@ const DoctorCard = ({ data }) => {
         </div>
       </div>
 
-      {/* ── Bottom: data on secondary bg ── */}
       <div className="px-4 pb-4 pt-1.5" style={{ background: "#C5DEE650" }}>
 
-        {/* Name & specialty */}
         <h2 className="text-[18px] font-semibold text-foreground leading-tight mb-0.5">
           {name}
         </h2>
@@ -46,7 +44,6 @@ const DoctorCard = ({ data }) => {
           {specialty}
         </p>
 
-        {/* 2-line description */}
         <p
           className="text-[12px] leading-relaxed line-clamp-2 mb-3"
           style={{ color: "rgba(13,13,13,0.6)" }}
@@ -54,10 +51,8 @@ const DoctorCard = ({ data }) => {
           {description}
         </p>
 
-        {/* Divider */}
         <div className="h-px mb-3" style={{ background: "rgba(36,59,66,0.1)" }} />
 
-        {/* Experience + Fee */}
         <div className="grid grid-cols-2 place-items-center gap-2 mb-3">
           <div className="flex items-center gap-1.5">
             <Stethoscope size={15} style={{ color: "#243B42", flexShrink: 0 }} />
@@ -83,7 +78,6 @@ const DoctorCard = ({ data }) => {
           </div>
         </div>
 
-        {/* Availability slots */}
         <div className="flex justify-around items-center flex-wrap gap-1.5 mb-3.5">
           {availability.map((slot, i) => (
             <span
@@ -100,7 +94,7 @@ const DoctorCard = ({ data }) => {
           ))}
         </div>
 
-        <PrimaryButton href={'/'} className="w-full shadow-none">View Details</PrimaryButton>
+        <PrimaryButton href={`/appointments/${id}`} className="w-full shadow-none">View Details</PrimaryButton>
       </div>
     </div>
   );

@@ -14,6 +14,11 @@ const getAppointmentsById = async (id) => {
 
     const data = await res.json();
 
+    if(!data) return {
+      success: false,
+      message: 'Data Not Found'
+    }
+
     return {
       success: true,
       data,
