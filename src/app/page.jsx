@@ -3,6 +3,7 @@ import { cormorant, jakarta } from "./layout";
 import Featured from "@/components/home/Featured";
 import FaqSection from "@/components/home/FaqSection";
 import EmergencyContact from "@/components/home/EmergencyContact";
+import Footer from "@/components/shared/Footer";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Featured />
       <FaqSection />
       <EmergencyContact />
+      <Footer />
     </>
   );
 }
