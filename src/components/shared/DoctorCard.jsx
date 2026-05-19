@@ -7,7 +7,7 @@ const DoctorCard = ({ data }) => {
   const { id, name, specialty, image, availability, description, fee, rating, experience } = data;
 
   return (
-    <div className=" rounded-[22px] overflow-hidden shrink-0 shadow-md">
+    <div className=" rounded-[22px] overflow-hidden shrink-0 shadow-md group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
 
       {/* ── Top: full-bleed image ── */}
       <div className="relative w-full h-65">
@@ -15,7 +15,7 @@ const DoctorCard = ({ data }) => {
           src={image || "/fallback-doctor.jpg"}
           alt={name}
           fill
-          className="object-cover object-top"
+          className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
           sizes="260px"
         />
         {/* Rating badge */}
@@ -84,7 +84,7 @@ const DoctorCard = ({ data }) => {
         </div>
 
         {/* Availability slots */}
-        <div className="flex justify-center items-center flex-wrap gap-1.5 mb-3.5">
+        <div className="flex justify-around items-center flex-wrap gap-1.5 mb-3.5">
           {availability.map((slot, i) => (
             <span
               key={i}
