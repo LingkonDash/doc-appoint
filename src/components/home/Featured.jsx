@@ -6,13 +6,12 @@ const Featured = async () => {
   const data = await getFeaturedDoc()
   const featuredData = data.data
 
-  console.log(featuredData);
   return (
     <section className='my-10'>
       <h2>Meet our Expert Doctors</h2>
       <p>Highly experienced doctors and specialist committed to your health journey.</p>
 
-      <div>
+      <div className='grid grid-cols-3 gap-4 px-10'>
         {
           featuredData.map(data => <DoctorCard key={data._id} data={data}/>)
         }
