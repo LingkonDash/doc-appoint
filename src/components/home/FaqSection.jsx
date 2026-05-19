@@ -37,9 +37,9 @@ const FaqSection = () => {
       {/* ── Header ── */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 mb-3">
-          <span className="w-[3px] h-[14px] rounded-full bg-primary block" />
+          <span className="w-0.75 h-3.5 rounded-full bg-primary block" />
           <span
-            className="text-[11px] font-bold uppercase tracking-[0.1em]"
+            className="text-[11px] font-bold uppercase tracking-widest"
             style={{ color: "#243B42" }}
           >
             FAQ
@@ -74,7 +74,7 @@ const FaqSection = () => {
                 >
                   {/* Icon */}
                   <span
-                    className="w-[22px] h-[22px] rounded-md flex items-center justify-center shrink-0 transition-transform duration-250"
+                    className="w-5.5 h-5.5 rounded-md flex items-center justify-center shrink-0 transition-transform duration-250"
                     style={{ background: "#243B42" }}
                   >
                     <Plus
@@ -98,7 +98,7 @@ const FaqSection = () => {
                   style={{ maxHeight: isOpen ? "200px" : "0px" }}
                 >
                   <p
-                    className="text-[12px] leading-relaxed pb-4 pl-[50px] pr-4"
+                    className="text-[12px] leading-relaxed pb-4 pl-12.5 pr-4"
                     style={{ color: "rgba(13,13,13,0.6)" }}
                   >
                     {faq.a}
@@ -110,7 +110,7 @@ const FaqSection = () => {
         </div>
 
         {/* Image */}
-        <div className="relative rounded-[18px] overflow-hidden h-[380px]">
+        <div className="relative rounded-[18px] overflow-hidden h-95">
           {/* Accent corners */}
           <div
             className="absolute -top-3 -left-3 w-14 h-14 rounded-xl z-0"
