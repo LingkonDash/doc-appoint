@@ -10,7 +10,7 @@ const Banner = () => {
   return (
     <div className='pt-10 bg-linear-to-t from-secondary to-white text-primary px-5 md:px-10 lg:px-15'>
       <div className='grid md:grid-cols-2 max-w-380 mx-auto'>
-        <div className='space-y-6 pb-5 place-self-end'>
+        <div className='space-y-6 pb-5 place-self-center'>
           <div className='text-center md:text-left space-y-4'>
             <h1 className={`text-5xl lg:text-6xl font-medium leading-none`}>Your Health <br />Deserves the right specialist</h1>
 
@@ -33,7 +33,7 @@ const Banner = () => {
           </div>
         </div>
         <div className='mx-auto w-fit place-self-end justify-self-'>
-          <Image src={avatar} alt='Doctor Natasha' height={500} width={500} />
+          <Image src={avatar} alt='Doctor Natasha' height={700} width={700} />
         </div>
       </div>
     </div>

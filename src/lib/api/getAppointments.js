@@ -1,7 +1,8 @@
 
 const getAppointments = async () => {
   try {
-    const res = await fetch(`${process.env.PUBLIC_API_URL}/appointments`);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments`);
 
     if (!res.ok) {
       return {

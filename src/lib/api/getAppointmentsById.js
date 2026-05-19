@@ -1,7 +1,8 @@
 
-const getFeaturedDoc = async () => {
+const getAppointmentsById = async (id) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featuredDoc`);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments/${id}`);
 
     if (!res.ok) {
       return {
@@ -27,4 +28,4 @@ const getFeaturedDoc = async () => {
   }
 };
 
-export default getFeaturedDoc;
+export default getAppointmentsById;
