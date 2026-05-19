@@ -4,36 +4,32 @@ import { Button, Description, FieldError, Form, Input, Label, TextField } from '
 import { Check } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { FaGoogle } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 const RegisterForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {};
-    // Convert FormData to plain object
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
+    const data = Object.fromEntries(formData.entries());
+    alert(`Logging in with: ${JSON.stringify(data)}`);
   };
 
   const handleGoogleLogin = () => {
     alert("Google authentication triggered");
-    // Add your OAuth or NextAuth sign-in trigger here
   };
 
-  // Shared classes for our frosted-glass text fields to keep it perfectly scannable
+  // Shared utility classes to perfectly mirror your login page inputs
   const fieldClasses = "flex flex-col gap-1.5 w-full";
-  const labelClasses = "text-xs font-semibold uppercase tracking-wider text-secondary/80 ml-1";
-  const inputWrapperClasses = "[&_input]:bg-white/[0.04] [&_input]:border [&_input]:border-secondary/15 [&_input]:rounded-xl [&_input]:px-4 [&_input]:py-2.5 [&_input]:text-sm [&_input]:text-white [&_input]:placeholder-secondary/40 [&_input]:w-full [&_input]:transition-all [&_input:focus]:border-secondary [&_input:focus]:ring-2 [&_input:focus]:ring-secondary/20 [&_input:focus]:outline-none [&_input]:backdrop-blur-sm";
+  const labelClasses = "text-[11px] font-bold uppercase tracking-wider text-slate-700 ml-1";
+  const inputWrapperClasses = "[&_input]:bg-[#F4F8F9] [&_input]:border [&_input]:border-slate-200/60 [&_input]:rounded-xl [&_input]:px-4 [&_input]:py-2.5 [&_input]:text-sm [&_input]:text-slate-800 [&_input]:placeholder-slate-400 [&_input]:w-full [&_input]:transition-all [&_input:focus]:border-[#1C353D] [&_input:focus]:bg-white [&_input:focus]:outline-none";
 
   return (
     <div className="flex flex-col w-full gap-5">
       
+      {/* Main Registration Form */}
       <Form
-        className="flex w-full flex-col gap-5"
+        className="flex w-full flex-col gap-4"
         render={(props) => <form {...props} data-custom="foo" />}
         onSubmit={onSubmit}
       >
@@ -53,7 +49,7 @@ const RegisterForm = () => {
           <div className={inputWrapperClasses}>
             <Input placeholder="Enter your full name" />
           </div>
-          <FieldError className="text-xs text-red-400 mt-1 ml-1" />
+          <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
         {/* Email Input */}
@@ -69,25 +65,25 @@ const RegisterForm = () => {
             return null;
           }}
         >
-          <Label className={labelClasses}>Email</Label>
+          <Label className={labelClasses}>Email Address</Label>
           <div className={inputWrapperClasses}>
             <Input placeholder="john@example.com" />
           </div>
-          <FieldError className="text-xs text-red-400 mt-1 ml-1" />
+          <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
         {/* Photo URL Input */}
         <TextField
           isRequired
           name="photoUrl"
-          type='url'
+          type="url"
           className={fieldClasses}
         >
           <Label className={labelClasses}>Photo URL</Label>
           <div className={inputWrapperClasses}>
             <Input placeholder="https://example.com/photo.jpg" />
           </div>
-          <FieldError className="text-xs text-red-400 mt-1 ml-1" />
+          <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
         {/* Password Input */}
@@ -114,55 +110,49 @@ const RegisterForm = () => {
           <div className={inputWrapperClasses}>
             <Input placeholder="••••••••" />
           </div>
-          <Description className="text-[11px] text-secondary/50 mt-1 ml-1 leading-normal">
+          <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
             Must be at least 8 characters with 1 uppercase and 1 number.
           </Description>
-          <FieldError className="text-xs text-red-400 mt-1 ml-1" />
+          <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
-        <div className="flex gap-3 pt-2 w-full">
-          <Button
+        {/* Submit Form Button */}
+        <div className="pt-2 w-full">
+          <Button 
             type="submit"
-            className="flex-1 flex items-center justify-center gap-2 bg-secondary text-primary font-bold rounded-xl py-3 shadow-lg shadow-secondary/10 hover:bg-white hover:text-primary hover:shadow-white/10 active:scale-[0.98] transition-all cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 bg-[#1C353D] hover:bg-[#15282E] text-white font-bold rounded-xl py-3 transition-all cursor-pointer active:scale-[0.98]"
           >
             <Check className="w-4 h-4" />
-            Create Account
-          </Button>
-          <Button
-            type="reset"
-            className="px-5 border border-secondary/20 hover:border-secondary/40 text-secondary bg-transparent font-medium rounded-xl transition-all cursor-pointer active:scale-[0.98]"
-          >
-            Reset
+            Sign Up
           </Button>
         </div>
       </Form>
 
-      {/* Separator */}
+      {/* Visual Separator */}
       <div className="flex items-center my-1">
-        <div className="flex-1 border-t border-secondary/10"></div>
-        <span className="px-3 text-xs uppercase tracking-wider text-secondary/40 font-medium">Or Sign in with google</span>
-        <div className="flex-1 border-t border-secondary/10"></div>
+        <div className="flex-1 border-t border-slate-200"></div>
+        <span className="px-3 text-[10px] uppercase tracking-wider text-slate-400 font-bold">Or register with email</span>
+        <div className="flex-1 border-t border-slate-200"></div>
       </div>
 
-      {/* Google Sign-In Button */}
+      {/* Google Provider Sign-In */}
       <Button
         type="button"
         onClick={handleGoogleLogin}
-        className="w-full flex items-center justify-center gap-3 bg-white/3 hover:bg-white/8 text-white border border-secondary/20 hover:border-secondary/40 font-medium rounded-xl py-3 shadow-md transition-all cursor-pointer active:scale-[0.98]"
+        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold rounded-xl py-2.5 shadow-sm transition-all cursor-pointer active:scale-[0.98]"
       >
-        <FaGoogle /> Continue with Google
+        <FcGoogle />
+        Continue with Google
       </Button>
 
-
-
-      {/* Already have an account link */}
-      <p className="text-center text-sm text-secondary/70 mt-2">
+      {/* Redirect Link */}
+      <p className="text-center text-sm text-slate-500 mt-1">
         Already have an account?{' '}
-        <Link
-          href="/login"
-          className="text-white font-semibold hover:text-secondary underline underline-offset-4 transition-all"
+        <Link 
+          href="/login" 
+          className="text-[#1C353D] font-bold hover:underline transition-all"
         >
-          Sign In
+          Register here
         </Link>
       </p>
     </div>
