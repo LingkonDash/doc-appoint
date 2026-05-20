@@ -1,9 +1,16 @@
 import getAppointmentsById from '@/lib/api/getAppointmentsById';
 import Image from 'next/image';
-import { MapPin, Clock, Briefcase, Star, Building2, BanknoteIcon, CalendarCheck, ShieldCheck, GraduationCap, Phone } from 'lucide-react';
+import { MapPin, Clock, Briefcase, Star, Building2, BanknoteIcon, ShieldCheck, GraduationCap, Phone } from 'lucide-react';
+import BookAppointModal from '@/components/shared/BookAppointModal';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const DocDetailsPage = async ({ params }) => {
   const { id } = await params;
+  const session = await auth.api.getSession({ headers: await headers() });
+
+  console.log(session);
+
   const res = await getAppointmentsById(id);
 
   // ── Error state ──
@@ -49,12 +56,12 @@ const DocDetailsPage = async ({ params }) => {
               className="object-cover object-top"
               sizes="280px"
             />
-            
+
             <div
               className="absolute inset-0"
               style={{ background: "linear-gradient(to top, #243B42 0%, transparent 30%)" }}
             />
-            
+
             <div
               className="absolute bottom-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-semibold bg-primary text-white/80 blur-in-sm"
               style={{ border: "1px solid rgba(197,222,230,0.2)" }}
@@ -107,15 +114,8 @@ const DocDetailsPage = async ({ params }) => {
               </div>
             </div>
 
-
-            <button
-              className="w-full py-3.5 rounded-xl text-[14px] font-semibold transition-opacity hover:opacity-90 cursor-pointer"
-              style={{ background: "#243B42", color: "#C5DEE6" }}
-            >
-              <span className="flex items-center justify-center gap-2">
-                <CalendarCheck size={16} /> Book Appointment
-              </span>
-            </button>
+            {/* Book appoint modal */}
+            <BookAppointModal  doctorName={name} doctorId={id} userEmail={session?.user?.email} userID={session?.user?.id} />
           </div>
         </div>
       </div>
