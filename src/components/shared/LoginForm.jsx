@@ -1,23 +1,19 @@
 'use client'
 
-import { Button, FieldError, Form, Input, Label, TextField } from '@heroui/react';
-import { LogIn } from 'lucide-react';
+import { Button, Description, FieldError, Form, Input, Label, TextField } from '@heroui/react';
+import { LogIn, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import React, { useState } from 'react';
+import { handleGoogleLogin, onLoginSubmit } from '@/lib/formFunctions';
+import { useRouter } from 'next/navigation';
+
 
 const LoginForm = () => {
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    alert(`Logging in with: ${JSON.stringify(data)}`);
-  };
+  const router = useRouter();
 
-  const handleGoogleLogin = () => {
-    alert("Google authentication triggered");
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   // Light clinical input class setups
   const fieldClasses = "flex flex-col gap-1.5 w-full";
@@ -27,12 +23,11 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col w-full gap-5">
 
-
       {/* Main Login Form */}
       <Form
         className="flex w-full flex-col gap-5"
         render={(props) => <form {...props} data-custom="foo" />}
-        onSubmit={onSubmit}
+        onSubmit={(e) => onLoginSubmit(e, router)}
       >
         {/* Email Input */}
         <TextField
@@ -54,26 +49,50 @@ const LoginForm = () => {
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
-        {/* Password Input */}
+        {/* Password Input with Show/Hide Eye Toggle */}
         <TextField
           isRequired
+          minLength={8}
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className={fieldClasses}
+          validate={(value) => {
+            if (value.length < 8) {
+              return "Password must be at least 8 characters";
+            }
+            if (!/[A-Z]/.test(value)) {
+              return "Password must contain at least one uppercase letter";
+            }
+            if (!/[0-9]/.test(value)) {
+              return "Password must contain at least one number";
+            }
+            return null;
+          }}
         >
           <div className="flex justify-between items-center w-full">
             <Label className={labelClasses}>Password</Label>
-            <Link href="#" className="text-[11px] font-semibold text-primary/60 hover:text-blue-300 transition-all">
+            <Link href="#" className="text-[11px] font-semibold text-primary/60 hover:text-blue-500 transition-all">
               Forgot Password?
             </Link>
           </div>
-          <div className={inputWrapperClasses}>
-            <Input placeholder="••••••••" />
+          
+          <div className={`${inputWrapperClasses} relative flex items-center`}>
+            <Input placeholder="••••••••" className="w-full pr-10" />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 text-slate-400 hover:text-primary transition-colors focus:outline-none cursor-pointer z-10"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
+          <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
+            Must be at least 8 characters with 1 uppercase and 1 number.
+          </Description>
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
-        {/* Submit Action (Matches the prominent "Find A Doctor" / "Register" buttons from your home hero) */}
+        {/* Submit Action */}
         <div className="pt-2 w-full">
           <Button
             type="submit"
@@ -92,13 +111,13 @@ const LoginForm = () => {
         <div className="flex-1 border-t border-secondary/40"></div>
       </div>
 
-      {/* Google Sign-In button designed to feel clean against the white card */}
+      {/* Google Sign-In Button */}
       <Button
         type="button"
         onClick={handleGoogleLogin}
-        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-[#FAFAFA] text-primary border border-secondary/60 font-semibold rounded-xl py-3 shadow-sm transition-all cursor-pointer active:scale-[0.98]"
+        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-surface text-primary border border-secondary/60 font-semibold rounded-xl py-3 shadow-sm transition-all cursor-pointer active:scale-[0.98]"
       >
-        <FcGoogle />
+        <FcGoogle className="text-xl" />
         Continue with Google
       </Button>
 
@@ -107,7 +126,7 @@ const LoginForm = () => {
         Don&apos;t have an account?{' '}
         <Link
           href="/register"
-          className="text-primary font-bold hover:text-blue-300 underline underline-offset-4 transition-all"
+          className="text-primary font-bold hover:text-blue-500 underline underline-offset-4 transition-all"
         >
           Register here
         </Link>

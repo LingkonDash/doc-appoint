@@ -1,23 +1,18 @@
 'use client'
 
+
+import { handleGoogleLogin, onSignupSubmit } from '@/lib/formFunctions';
 import { Button, Description, FieldError, Form, Input, Label, TextField } from '@heroui/react';
-import { Check } from 'lucide-react';
+import { Check, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 
 const RegisterForm = () => {
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    alert(`Logging in with: ${JSON.stringify(data)}`);
-  };
-
-  const handleGoogleLogin = () => {
-    alert("Google authentication triggered");
-  };
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  
 
   // Shared utility classes to perfectly mirror your login page inputs
   const fieldClasses = "flex flex-col gap-1.5 w-full";
@@ -26,12 +21,12 @@ const RegisterForm = () => {
 
   return (
     <div className="flex flex-col w-full gap-5">
-      
+
       {/* Main Registration Form */}
       <Form
         className="flex w-full flex-col gap-4"
         render={(props) => <form {...props} data-custom="foo" />}
-        onSubmit={onSubmit}
+        onSubmit={(e) => onSignupSubmit(e, router)}
       >
         {/* Name Input */}
         <TextField
@@ -75,7 +70,7 @@ const RegisterForm = () => {
         {/* Photo URL Input */}
         <TextField
           isRequired
-          name="photoUrl"
+          name="image"
           type="url"
           className={fieldClasses}
         >
@@ -86,12 +81,12 @@ const RegisterForm = () => {
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 
-        {/* Password Input */}
+        {/* Password Input with Eye Visibility Toggle */}
         <TextField
           isRequired
           minLength={8}
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className={fieldClasses}
           validate={(value) => {
             if (value.length < 8) {
@@ -107,8 +102,15 @@ const RegisterForm = () => {
           }}
         >
           <Label className={labelClasses}>Password</Label>
-          <div className={inputWrapperClasses}>
-            <Input placeholder="••••••••" />
+          <div className={`${inputWrapperClasses} relative flex items-center`}>
+            <Input placeholder="••••••••" className="w-full pr-10" />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 text-slate-400 hover:text-[#1C353D] transition-colors focus:outline-none cursor-pointer z-10"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
           <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
             Must be at least 8 characters with 1 uppercase and 1 number.
@@ -118,7 +120,7 @@ const RegisterForm = () => {
 
         {/* Submit Form Button */}
         <div className="pt-2 w-full">
-          <Button 
+          <Button
             type="submit"
             className="w-full flex items-center justify-center gap-2 bg-[#1C353D] hover:bg-[#15282E] text-white font-bold rounded-xl py-3 transition-all cursor-pointer active:scale-[0.98]"
           >
@@ -141,18 +143,18 @@ const RegisterForm = () => {
         onClick={handleGoogleLogin}
         className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold rounded-xl py-2.5 shadow-sm transition-all cursor-pointer active:scale-[0.98]"
       >
-        <FcGoogle />
+        <FcGoogle className="text-lg" />
         Continue with Google
       </Button>
 
       {/* Redirect Link */}
       <p className="text-center text-sm text-slate-500 mt-1">
         Already have an account?{' '}
-        <Link 
-          href="/login" 
+        <Link
+          href="/login"
           className="text-[#1C353D] font-bold hover:underline transition-all"
         >
-          Register here
+          Sign In
         </Link>
       </p>
     </div>
