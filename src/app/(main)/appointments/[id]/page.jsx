@@ -9,8 +9,6 @@ const DocDetailsPage = async ({ params }) => {
   const { id } = await params;
   const session = await auth.api.getSession({ headers: await headers() });
 
-  console.log(session);
-
   const res = await getAppointmentsById(id);
 
   // ── Error state ──

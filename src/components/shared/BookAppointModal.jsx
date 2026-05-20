@@ -1,32 +1,11 @@
 "use client";
 
+import { handleBookingSubmit } from "@/lib/formFunctions";
 import { Button, Input, Label, Modal, TextField, Select, ListBox, FieldError } from "@heroui/react";
-import { CalendarCheck, User, Mail, Phone, Calendar, Clock, FileText, ChevronDown } from "lucide-react";
+import { CalendarCheck, User, Mail, Phone, Calendar, Clock, FileText, ChevronDown, Droplets } from "lucide-react";
 import React from "react";
-import { toast } from "react-toastify";
 
 export default function BookAppointModal({ doctorName, doctorId, userEmail, userID }) {
-
-  const handleBookingSubmit = (e, close) => {
-    e.preventDefault();
-    
-    const formData = new FormData(e.currentTarget);
-    const bookingPayload = Object.fromEntries(formData.entries());
-
-    console.log("Finalized Booking Object Data:", bookingPayload);
-
-    toast.success(`Appointment successfully booked with ${doctorName}!`, {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "light",
-    });
-
-    close();
-  };
 
   const fieldClasses = "flex flex-col gap-1 w-full";
   const labelClasses = "text-[11px] font-bold uppercase tracking-wider text-primary/80 ml-1";
@@ -44,10 +23,7 @@ export default function BookAppointModal({ doctorName, doctorId, userEmail, user
       </Button>
 
       <Modal.Backdrop>
-        
         <Modal.Container placement="auto" className="p-2 sm:p-4">
-          
-          
           <Modal.Dialog className="w-full max-h-[92vh] sm:max-w-xl bg-white rounded-2xl border border-slate-100 shadow-2xl text-slate-800 flex flex-col overflow-hidden">
             {({ close }) => (
               <>
@@ -61,7 +37,7 @@ export default function BookAppointModal({ doctorName, doctorId, userEmail, user
                 </Modal.Header>
 
                 <form onSubmit={(e) => handleBookingSubmit(e, close)} className="flex flex-col flex-1 overflow-hidden">
-                  
+
                   <input type="hidden" name="doctorId" value={doctorId || ""} />
                   <input type="hidden" name="userID" value={userID || ""} />
                   <input type="hidden" name="doctorName" value={doctorName || ""} />
@@ -102,7 +78,7 @@ export default function BookAppointModal({ doctorName, doctorId, userEmail, user
                       <FieldError className="text-xs text-red-500 mt-1 ml-1" />
                     </TextField>
 
-                    {/* Gender Selection & Phone Row */}
+                    {/* Gender & Blood Group Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Select isRequired name="gender" className={fieldClasses} placeholder="Select gender">
                         <Label className={labelClasses}>Gender *</Label>
@@ -122,28 +98,55 @@ export default function BookAppointModal({ doctorName, doctorId, userEmail, user
                         <FieldError className="text-xs text-red-500 mt-1 ml-1" />
                       </Select>
 
-                      <TextField 
-                        isRequired 
-                        name="phone" 
-                        type="tel" 
-                        className={fieldClasses}
-                        validate={(value) => {
-                          const bdPhoneRegex = /^(?:\+88)?01[3-9]\d{8}$/;
-                          if (!value) return "Phone number is required";
-                          if (!bdPhoneRegex.test(value)) return "Enter a valid Bangladeshi phone number";
-                          return null;
-                        }}
-                      >
+                      <Select isRequired name="bloodGroup" className={fieldClasses} placeholder="Select blood group">
                         <div className="flex items-center gap-1 ml-1">
-                          <Phone size={12} className="text-primary/60" />
-                          <Label className={labelClasses}>Phone Number *</Label>
+                          <Droplets size={12} className="text-primary/60" />
+                          <Label className={labelClasses}>Blood Group *</Label>
                         </div>
-                        <div className={inputWrapperClasses}>
-                          <Input placeholder="01XXXXXXXXX" maxLength={14} />
-                        </div>
+                        <Select.Trigger className="flex items-center justify-between bg-[#F4F8F9] border border-slate-200/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 transition-all text-left focus:border-primary focus:bg-white focus:outline-none">
+                          <Select.Value />
+                          <Select.Indicator>
+                            <ChevronDown size={14} className="text-slate-400" />
+                          </Select.Indicator>
+                        </Select.Trigger>
+                        <Select.Popover className="bg-white border border-slate-100 rounded-xl shadow-xl z-50">
+                          <ListBox className="p-1 text-sm text-slate-700">
+                            <ListBox.Item id="A+" textValue="A+" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">A+</ListBox.Item>
+                            <ListBox.Item id="A-" textValue="A-" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">A-</ListBox.Item>
+                            <ListBox.Item id="B+" textValue="B+" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">B+</ListBox.Item>
+                            <ListBox.Item id="B-" textValue="B-" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">B-</ListBox.Item>
+                            <ListBox.Item id="O+" textValue="O+" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">O+</ListBox.Item>
+                            <ListBox.Item id="O-" textValue="O-" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">O-</ListBox.Item>
+                            <ListBox.Item id="AB+" textValue="AB+" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">AB+</ListBox.Item>
+                            <ListBox.Item id="AB-" textValue="AB-" className="px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition-colors">AB-</ListBox.Item>
+                          </ListBox>
+                        </Select.Popover>
                         <FieldError className="text-xs text-red-500 mt-1 ml-1" />
-                      </TextField>
+                      </Select>
                     </div>
+
+                    {/* Phone Input Field */}
+                    <TextField
+                      isRequired
+                      name="phone"
+                      type="tel"
+                      className={fieldClasses}
+                      validate={(value) => {
+                        const bdPhoneRegex = /^(?:\+88)?01[3-9]\d{8}$/;
+                        if (!value) return "Phone number is required";
+                        if (!bdPhoneRegex.test(value)) return "Enter a valid Bangladeshi phone number";
+                        return null;
+                      }}
+                    >
+                      <div className="flex items-center gap-1 ml-1">
+                        <Phone size={12} className="text-primary/60" />
+                        <Label className={labelClasses}>Phone Number *</Label>
+                      </div>
+                      <div className={inputWrapperClasses}>
+                        <Input placeholder="01XXXXXXXXX" maxLength={14} />
+                      </div>
+                      <FieldError className="text-xs text-red-500 mt-1 ml-1" />
+                    </TextField>
 
                     {/* Appointment Date & Time Picker */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
