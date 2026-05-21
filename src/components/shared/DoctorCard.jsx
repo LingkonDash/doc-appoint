@@ -1,15 +1,33 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Star, Stethoscope, ReceiptText } from "lucide-react";
 import PrimaryButton from "../reusables/PrimaryButton";
+import { motion } from "framer-motion";
 
 const DoctorCard = ({ data }) => {
-  const { id, name, specialty, image, availability, description, fee, rating, experience } = data;
+  const {
+    id,
+    name,
+    specialty,
+    image,
+    availability,
+    description,
+    fee,
+    rating,
+    experience,
+  } = data;
 
   return (
-    <div className=" rounded-[22px] overflow-hidden shrink-0 shadow-md group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-
-
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="rounded-[22px] overflow-hidden shrink-0 shadow-md group cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+    >
+      {/* Image Section */}
       <div className="relative w-full h-65">
         <Image
           src={image || "/fallback-doctor.jpg"}
@@ -18,7 +36,7 @@ const DoctorCard = ({ data }) => {
           className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
           sizes="260px"
         />
-        
+
         <div
           className="absolute top-3 right-3 flex items-center gap-1 text-[12px] font-semibold px-2.5 py-1 rounded-full bg-primary/80"
           style={{
@@ -28,15 +46,16 @@ const DoctorCard = ({ data }) => {
           }}
         >
           <Star size={11} fill="#f5c842" stroke="none" />
-          {rating.average}
+          {rating?.average}
         </div>
       </div>
 
+      {/* Content */}
       <div className="px-4 pb-4 pt-1.5" style={{ background: "#C5DEE650" }}>
-
         <h2 className="text-[18px] font-semibold text-foreground leading-tight my-2">
           {name}
         </h2>
+
         <p
           className="text-[11px] font-medium uppercase tracking-[0.06em] mb-2"
           style={{ color: "rgba(13,13,13,0.45)" }}
@@ -51,35 +70,59 @@ const DoctorCard = ({ data }) => {
           {description}
         </p>
 
-        <div className="h-px mb-3" style={{ background: "rgba(36,59,66,0.1)" }} />
+        <div
+          className="h-px mb-3"
+          style={{ background: "rgba(36,59,66,0.1)" }}
+        />
 
+        {/* Info Grid */}
         <div className="grid grid-cols-2 place-items-center gap-2 mb-3">
           <div className="flex items-center gap-1.5">
-            <Stethoscope size={15} style={{ color: "#243B42", flexShrink: 0 }} />
+            <Stethoscope
+              size={15}
+              style={{ color: "#243B42", flexShrink: 0 }}
+            />
             <div>
-              <span className="block text-[10px]" style={{ color: "rgba(13,13,13,0.45)" }}>
+              <span
+                className="block text-[10px]"
+                style={{ color: "rgba(13,13,13,0.45)" }}
+              >
                 Experience
               </span>
-              <span className="block text-[12px] font-semibold" style={{ color: "#243B42" }}>
+              <span
+                className="block text-[12px] font-semibold"
+                style={{ color: "#243B42" }}
+              >
                 {experience}
               </span>
             </div>
           </div>
+
           <div className="flex items-center gap-1.5">
-            <ReceiptText size={15} style={{ color: "#243B42", flexShrink: 0 }} />
+            <ReceiptText
+              size={15}
+              style={{ color: "#243B42", flexShrink: 0 }}
+            />
             <div>
-              <span className="block text-[10px]" style={{ color: "rgba(13,13,13,0.45)" }}>
+              <span
+                className="block text-[10px]"
+                style={{ color: "rgba(13,13,13,0.45)" }}
+              >
                 Consult fee
               </span>
-              <span className="block text-[12px] font-semibold" style={{ color: "#243B42" }}>
+              <span
+                className="block text-[12px] font-semibold"
+                style={{ color: "#243B42" }}
+              >
                 ৳{fee}
               </span>
             </div>
           </div>
         </div>
 
+        {/* Availability */}
         <div className="flex justify-around items-center flex-wrap gap-1.5 mb-3.5">
-          {availability.map((slot, i) => (
+          {availability?.map((slot, i) => (
             <span
               key={i}
               className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-1 rounded-full"
@@ -94,9 +137,14 @@ const DoctorCard = ({ data }) => {
           ))}
         </div>
 
-        <PrimaryButton href={`/appointments/${id}`} className="w-full shadow-none">View Details</PrimaryButton>
+        <PrimaryButton
+          href={`/appointments/${id}`}
+          className="w-full shadow-none"
+        >
+          View Details
+        </PrimaryButton>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

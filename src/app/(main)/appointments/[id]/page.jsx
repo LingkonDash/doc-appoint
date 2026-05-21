@@ -90,7 +90,6 @@ const DocDetailsPage = async ({ params }) => {
                 {name}
               </h1>
 
-
               <div className="flex flex-wrap gap-3 mb-6">
                 <span className="inline-flex items-center gap-1.5 text-[12px] font-medium px-3 py-1.5 rounded-full"
                   style={{ background: "rgba(36,59,66,0.08)", color: "#243B42" }}>
