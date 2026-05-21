@@ -61,8 +61,6 @@ export const handleBookingSubmit = async (e, close) => {
   const formData = new FormData(e.currentTarget);
   const bookingData = Object.fromEntries(formData.entries());
 
-  console.log("Finalized Booking Object Data:", bookingData);
-
   // calling api to post bookings
   const res = await postBookings(bookingData);
 
@@ -82,7 +80,6 @@ export const handleUpdateBooking = async (e, close, id, router) => {
   const formData = new FormData(e.currentTarget);
   const updatedBooking = Object.fromEntries(formData.entries());
 
-  console.log(id);
 
   // calling api to update bookings
   const res = await updateBookings(id, updatedBooking);
