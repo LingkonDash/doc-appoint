@@ -1,6 +1,7 @@
 import { handleDeleteBooking, handleUpdateBooking } from "@/lib/formFunctions";
 import { Calendar, Clock, Droplets, FileText, Pencil, Phone, Trash2, User } from "lucide-react";
 import BookingUpdateModal from "./BookingUpdateModal";
+import DeleteBookingModal from "./DeleteBookingModal";
 
 
 
@@ -57,17 +58,7 @@ const BookingCards = ({ booking }) => {
 
         <BookingUpdateModal booking={booking}/>
 
-        <button
-          onClick={() => handleDeleteBooking(_id)}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-60"
-          style={{
-            background: "rgba(220,38,38,0.08)",
-            color: "#dc2626",
-            border: "1px solid rgba(220,38,38,0.15)",
-          }}
-        >
-          <Trash2 size={13} /> Delete
-        </button>
+        <DeleteBookingModal booking={booking}/>
       </div>
     </div>
   );

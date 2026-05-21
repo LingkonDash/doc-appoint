@@ -7,8 +7,6 @@ import {
   Label,
   Modal,
   TextField,
-  Select,
-  ListBox,
   FieldError,
 } from "@heroui/react";
 
@@ -19,10 +17,10 @@ import {
   Calendar,
   Clock,
   FileText,
-  ChevronDown,
   Droplets,
   HeartPulse,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import React from "react";
 
@@ -38,7 +36,9 @@ export default function BookingUpdateModal({ booking }) {
     appointmentDate,
     appointmentTime,
     reason,
-  } = booking || {};
+  } = booking;
+
+  const router = useRouter();
 
   const fieldClasses = "flex flex-col gap-1 w-full";
 
@@ -48,17 +48,6 @@ export default function BookingUpdateModal({ booking }) {
   const inputWrapperClasses =
     "[&_input]:bg-[#F4F8F9] [&_input]:border [&_input]:border-slate-200/80 [&_input]:rounded-xl [&_input]:px-4 [&_input]:py-2.5 [&_input]:text-sm [&_input]:text-slate-800 [&_input]:placeholder-slate-400/70 [&_input]:w-full [&_input]:transition-all [&_input:focus]:border-primary [&_input:focus]:bg-white [&_input:focus]:outline-none";
 
-  const handleFormSubmit = async (e, close) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    const updatedBooking = Object.fromEntries(formData.entries());
-
-    console.log(booking)
-    console.log(UpdatedBooking)
-
-    // await handleUpdateBooking(_id, updatedBooking, close);
-  };
 
   return (
     <Modal>
@@ -113,7 +102,7 @@ export default function BookingUpdateModal({ booking }) {
                 </Modal.Header>
 
                 <form
-                  onSubmit={(e) => handleFormSubmit(e, close)}
+                  onSubmit={(e) => handleUpdateBooking(e, close, _id, router)}
                   className="flex flex-col flex-1 overflow-hidden"
                 >
                   <Modal.Body className="px-6 py-3 flex flex-col gap-4 overflow-y-auto flex-1 base-scrollbar">

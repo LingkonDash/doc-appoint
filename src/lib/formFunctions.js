@@ -76,7 +76,14 @@ export const handleBookingSubmit = async (e, close) => {
 };
 
 // booking update
-export const handleUpdateBooking = async (id, updatedBooking, close) => {
+export const handleUpdateBooking = async (e, close, id, router) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const updatedBooking = Object.fromEntries(formData.entries());
+
+  console.log(id);
+
   // calling api to update bookings
   const res = await updateBookings(id, updatedBooking);
 
@@ -85,13 +92,17 @@ export const handleUpdateBooking = async (id, updatedBooking, close) => {
     return;
   }
 
-  toast.success(`${updatedBooking.doctorName ? `Appointment with ${updatedBooking.doctorName} updated successfully!` : "Appointment updated successfully!"}`);
+  if (router) router.refresh();
+
+  toast.success(
+    `${updatedBooking.doctorName ? `Appointment with ${updatedBooking.doctorName} updated successfully!` : "Appointment updated successfully!"}`
+  );
 
   if (close) close();
 };
 
-//booking delete
-export const handleDeleteBooking = async (id) => {
+// booking delete
+export const handleDeleteBooking = async (close, id, router) => {
   // calling api to delete bookings
   const res = await deleteBookings(id);
 
@@ -99,6 +110,10 @@ export const handleDeleteBooking = async (id) => {
     toast.error(`${res.message || 'Failed to cancel'}! please try again..`);
     return;
   }
+  
+  if (router) router.refresh();
 
   toast.success("Appointment canceled successfully!");
+
+  if (close) close();
 };
