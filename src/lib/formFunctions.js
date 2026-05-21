@@ -110,10 +110,27 @@ export const handleDeleteBooking = async (close, id, router) => {
     toast.error(`${res.message || 'Failed to cancel'}! please try again..`);
     return;
   }
-  
+
   if (router) router.refresh();
 
   toast.success("Appointment canceled successfully!");
 
   if (close) close();
 };
+
+
+//profile update
+export const handleUpdateProfile = async (e, router) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const updatedUserData = Object.fromEntries(formData.entries());
+
+  console.log(updatedUserData);
+
+  await authClient.updateUser(updatedUserData)
+
+  router.refresh();
+
+  toast.success('profile updated successfully')
+}
