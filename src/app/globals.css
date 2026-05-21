@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
+@import "swiper/css";
+@import "swiper/css/pagination";
 
 @theme {
   --color-primary:    #243B42;
