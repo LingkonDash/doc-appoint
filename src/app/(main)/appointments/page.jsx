@@ -1,6 +1,10 @@
 import SearchDoctors from "@/components/home/SearchDoctors";
 import getAppointments from "@/lib/api/getAppointments";
 
+export const metadata = {
+  title: "Appointments - Doc Appointment",
+};
+
 const AppointmentsPage = async () => {
   const data = await getAppointments();
   const appointments = data.data;

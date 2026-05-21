@@ -5,6 +5,11 @@ import BookAppointModal from '@/components/shared/BookAppointModal';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
+
+export const metadata = {
+  title: "Doctor Details - Doc Appointment",
+};
+
 const DocDetailsPage = async ({ params }) => {
   const { id } = await params;
   const session = await auth.api.getSession({ headers: await headers() });
@@ -113,7 +118,7 @@ const DocDetailsPage = async ({ params }) => {
             </div>
 
             {/* Book appoint modal */}
-            <BookAppointModal  doctorName={name} doctorId={id} userEmail={session?.user?.email} userID={session?.user?.id} />
+            <BookAppointModal doctorName={name} doctorId={id} userEmail={session?.user?.email} userID={session?.user?.id} />
           </div>
         </div>
       </div>

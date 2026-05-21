@@ -3,6 +3,9 @@ import { getBookings } from '@/lib/api/bookingApi';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
+export const metadata = {
+  title: "Dashboard - Doc Appointment",
+};
 
 const DashboardPage = async () => {
 

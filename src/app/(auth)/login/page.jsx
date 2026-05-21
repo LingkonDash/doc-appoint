@@ -4,6 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import logo from '@/images/docAppoint-logo.png';
 
+export const metadata = {
+  title: "Login - Doc Appointment",
+};
+
 const LoginPage = () => {
   return (
     <div className="bg-linear-to-tr from-secondary/50 to-[#E9F2F5] min-h-screen w-full flex items-start justify-center p-4 pt-10 relative overflow-hidden">

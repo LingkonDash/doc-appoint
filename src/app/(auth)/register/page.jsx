@@ -4,6 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import logo from '@/images/docAppoint-logo.png';
 
+export const metadata = {
+  title: "Register - Doc Appointment",
+};
+
 const RegisterPage = () => {
   return (
     <div className="bg-[#EBF3F6] min-h-screen w-full flex items-center justify-center p-4">
