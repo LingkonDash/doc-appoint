@@ -52,19 +52,9 @@ const LoginForm = () => {
         {/* Password Input with Show/Hide Eye Toggle */}
         <TextField
           isRequired
-          minLength={8}
           name="password"
           type={showPassword ? "text" : "password"}
           className={fieldClasses}
-          validate={(value) => {
-            if (value.length < 6) {
-              return "Password must be at least 6 characters";
-            }
-            if (!/[A-Z]/.test(value)) {
-              return "Password must contain at least one uppercase letter";
-            }
-            return null;
-          }}
         >
           <div className="flex justify-between items-center w-full">
             <Label className={labelClasses}>Password</Label>
@@ -83,9 +73,6 @@ const LoginForm = () => {
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
-          <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
-            Must be at least 8 characters with 1 uppercase and 1 number.
-          </Description>
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
 

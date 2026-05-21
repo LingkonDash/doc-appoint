@@ -14,11 +14,12 @@ const Banner = () => {
     <div className="pt-10 bg-linear-to-t from-secondary to-white text-primary px-5 md:px-10 lg:px-15 overflow-hidden">
       <div className="grid md:grid-cols-2 max-w-380 mx-auto">
 
-        {/* Left Column: Text and Actions */}
+        {/* Left Column */}
         <motion.div
           className="space-y-6 pb-5 place-self-center"
-          initial={false}
-          animate={{ opacity: 1, x: 0, y: 0 }}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="text-center md:text-left space-y-4">
@@ -53,8 +54,7 @@ const Banner = () => {
             <div>
               <h2>Free checkup</h2>
               <p>
-                Comprehensive evaluation with no upfront cost. Limited time
-                offer.
+                Comprehensive evaluation with no upfront cost. Limited time offer.
               </p>
             </div>
 
@@ -63,18 +63,18 @@ const Banner = () => {
             <div>
               <h2>Custom Treatment Plan</h2>
               <p>
-                From Diagnosis to recovery, we map every step for your unique
-                needs
+                From Diagnosis to recovery, we map every step for your unique needs
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Right Column: Doctor Image */}
+        {/* Right Column */}
         <motion.div
           className="mx-auto w-fit place-self-end"
-          initial={false}
-          animate={{ opacity: 1, x: 0, y: 0 }}
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
         >
           <Image
@@ -85,6 +85,7 @@ const Banner = () => {
             priority
           />
         </motion.div>
+
       </div>
     </div>
   );

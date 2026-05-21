@@ -89,8 +89,8 @@ const RegisterForm = () => {
           type={showPassword ? "text" : "password"}
           className={fieldClasses}
           validate={(value) => {
-            if (value.length < 6) {
-              return "Password must be at least 6 characters";
+            if (value.length < 8) {
+              return "Password must be at least 8 characters";
             }
             if (!/[A-Z]/.test(value)) {
               return "Password must contain at least one uppercase letter";
@@ -100,7 +100,7 @@ const RegisterForm = () => {
         >
           <Label className={labelClasses}>Password</Label>
           <div className={`${inputWrapperClasses} relative flex items-center`}>
-            <Input placeholder="••••••••" className="w-full pr-10" />
+            <Input placeholder="••••••••••" className="w-full pr-10" />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -110,7 +110,7 @@ const RegisterForm = () => {
             </button>
           </div>
           <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
-            Must be at least 8 characters with 1 uppercase and 1 number.
+            Must be at least 8 characters with 1 uppercase letter.
           </Description>
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>

@@ -28,7 +28,10 @@ export const onLoginSubmit = async (e, router) => {
   }
 
   toast.success("Logged in successfully! Redirecting...");
-  setTimeout(() => router.push("/"), 1000);
+  setTimeout(() => {
+    router.push("/")
+    router.refresh();
+  }, 700);
 };
 
 
@@ -52,7 +55,10 @@ export const onSignupSubmit = async (e, router) => {
   }
 
   toast.success("Registered successfully! Redirecting to login...");
-  setTimeout(() => router.push("/login"), 1000);
+  setTimeout(() => {
+    router.push("/login")
+    router.refresh()
+  }, 700);
 };
 
 export const handleBookingSubmit = async (e, close, token) => {
