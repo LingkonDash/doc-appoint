@@ -95,6 +95,9 @@ const RegisterForm = () => {
             if (!/[A-Z]/.test(value)) {
               return "Password must contain at least one uppercase letter";
             }
+            if (!/[a-z]/.test(value)) {
+              return "Password must contain at least one lowercase letter";
+            }
             return null;
           }}
         >
@@ -110,7 +113,7 @@ const RegisterForm = () => {
             </button>
           </div>
           <Description className="text-[10px] text-slate-400 mt-1 ml-1 leading-normal">
-            Must be at least 8 characters with 1 uppercase letter.
+            Must be at least 8 characters with 1 uppercase and 1 lowercase letter.
           </Description>
           <FieldError className="text-xs text-red-500 mt-1 ml-1" />
         </TextField>
