@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Plus } from "lucide-react";
 import faqImg from "@/images/faq-img.jpg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
@@ -32,10 +33,16 @@ const FaqSection = () => {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="my-25 px-10 max-w-350 mx-auto">
+    <section className="my-25 px-10 max-w-350 mx-auto overflow-hidden">
 
-      {/* ── Header ── */}
-      <div className="text-center mb-10">
+      {/* ── Header: Triggers when in view ── */}
+      <motion.div 
+        className="text-center mb-10"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="inline-flex items-center gap-2 mb-3">
           <span className="w-0.75 h-3.5 rounded-full bg-primary block" />
           <span
@@ -48,13 +55,19 @@ const FaqSection = () => {
         <h2 className="text-[30px] font-bold text-primary">
           Frequently Asked Questions
         </h2>
-      </div>
+      </motion.div>
 
-      {/* ── Body: accordion + image ── */}
+      {/* ── Body ── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-        {/* Accordion */}
-        <div className="flex flex-col gap-2.5">
+        {/* Accordion List: Triggers when in view */}
+        <motion.div 
+          className="flex flex-col gap-2.5"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+        >
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
@@ -72,46 +85,55 @@ const FaqSection = () => {
                   onClick={() => setOpen(isOpen ? -1 : i)}
                   className="w-full flex items-center gap-3 px-4 py-3.5 text-left cursor-pointer"
                 >
-                  {/* Icon */}
                   <span
-                    className="w-5.5 h-5.5 rounded-md flex items-center justify-center shrink-0 transition-transform duration-250"
+                    className="w-5.5 h-5.5 rounded-md flex items-center justify-center shrink-0"
                     style={{ background: "#243B42" }}
                   >
-                    <Plus
-                      size={13}
-                      color="#C5DEE6"
-                      strokeWidth={2.5}
-                      style={{
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                        transition: "transform 0.25s ease",
-                      }}
-                    />
+                    <motion.span
+                      animate={{ rotate: isOpen ? 45 : 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="flex items-center justify-center"
+                    >
+                      <Plus size={13} color="#C5DEE6" strokeWidth={2.5} />
+                    </motion.span>
                   </span>
+                  
                   <span className="text-[13px] font-medium text-primary leading-snug">
                     {faq.q}
                   </span>
                 </button>
 
-                {/* Answer */}
-                <div
-                  className="overflow-hidden transition-all duration-300"
-                  style={{ maxHeight: isOpen ? "200px" : "0px" }}
-                >
-                  <p
-                    className="text-[12px] leading-relaxed pb-4 pl-12.5 pr-4"
-                    style={{ color: "rgba(13,13,13,0.6)" }}
-                  >
-                    {faq.a}
-                  </p>
-                </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p
+                        className="text-[12px] leading-relaxed pb-4 pl-12.5 pr-4"
+                        style={{ color: "rgba(13,13,13,0.6)" }}
+                      >
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
-        </div>
+        </motion.div>
 
-        {/* Image */}
-        <div className="relative rounded-[18px] overflow-hidden h-95">
-          {/* Accent corners */}
+        {/* Image: Triggers when in view (Staggered Arrival) */}
+        <motion.div 
+          className="relative rounded-[18px] overflow-hidden h-95"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
+        >
           <div
             className="absolute -top-3 -left-3 w-14 h-14 rounded-xl z-0"
             style={{ background: "#243B42" }}
@@ -128,7 +150,7 @@ const FaqSection = () => {
             className="object-cover object-center relative z-10"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-        </div>
+        </motion.div>
 
       </div>
     </section>
