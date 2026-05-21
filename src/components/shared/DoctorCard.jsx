@@ -34,7 +34,7 @@ const DoctorCard = ({ data }) => {
 
       <div className="px-4 pb-4 pt-1.5" style={{ background: "#C5DEE650" }}>
 
-        <h2 className="text-[18px] font-semibold text-foreground leading-tight mb-0.5">
+        <h2 className="text-[18px] font-semibold text-foreground leading-tight my-2">
           {name}
         </h2>
         <p

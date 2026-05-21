@@ -1,5 +1,6 @@
-import { deleteBookings, updateBookings } from "@/lib/api/bookingApi";
+import { handleDeleteBooking, handleUpdateBooking } from "@/lib/formFunctions";
 import { Calendar, Clock, Droplets, FileText, Pencil, Phone, Trash2, User } from "lucide-react";
+import BookingUpdateModal from "./BookingUpdateModal";
 
 
 
@@ -18,11 +19,7 @@ const BookingCards = ({ booking }) => {
 
   return (
     <div
-      className="rounded-[20px] p-6 transition-shadow hover:shadow-md"
-      style={{
-        background: "#fff",
-        border: "1px solid rgba(36,59,66,0.09)",
-      }}
+      className="rounded-[20px] p-6 transition-shadow hover:shadow-md bg-white border border-primary/30"
     >
       {/* Doctor name */}
       <h3 className="text-[16px] font-bold text-primary mb-4">{doctorName}</h3>
@@ -57,19 +54,11 @@ const BookingCards = ({ booking }) => {
 
       {/* Actions */}
       <div className="flex gap-2">
+
+        <BookingUpdateModal booking={booking}/>
+
         <button
-          onClick={() => updateBookings(_id)}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12px] font-medium transition-colors cursor-pointer"
-          style={{
-            background: "rgba(36,59,66,0.07)",
-            color: "#243B42",
-            border: "1px solid rgba(36,59,66,0.12)",
-          }}
-        >
-          <Pencil size={13} /> Update
-        </button>
-        <button
-          onClick={() => deleteBookings(_id)}
+          onClick={() => handleDeleteBooking(_id)}
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-60"
           style={{
             background: "rgba(220,38,38,0.08)",

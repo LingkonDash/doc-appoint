@@ -1,4 +1,4 @@
-import { postBookings } from "./api/bookingApi";
+import { deleteBookings, postBookings, updateBookings } from "./api/bookingApi";
 import { authClient } from "./auth-client";
 import { toast } from "react-toastify";
 
@@ -55,7 +55,6 @@ export const onSignupSubmit = async (e, router) => {
   setTimeout(() => router.push("/login"), 1000);
 };
 
-
 export const handleBookingSubmit = async (e, close) => {
   e.preventDefault();
 
@@ -65,16 +64,41 @@ export const handleBookingSubmit = async (e, close) => {
   console.log("Finalized Booking Object Data:", bookingData);
 
   // calling api to post bookings
-
   const res = await postBookings(bookingData);
 
-  console.log(res);
-
-  if(!res.success) {
-    toast.error(`${res.message}! please try again..`);
+  if (!res.success) {
+    toast.error(`${res.message || 'Something went wrong'}! please try again..`);
     return;
   }
 
   toast.success(`Appointment successfully booked with ${bookingData.doctorName}!`);
   close();
+};
+
+// booking update
+export const handleUpdateBooking = async (id, updatedBooking, close) => {
+  // calling api to update bookings
+  const res = await updateBookings(id, updatedBooking);
+
+  if (!res.success) {
+    toast.error(`${res.message || 'Failed to update'}! please try again..`);
+    return;
+  }
+
+  toast.success(`${updatedBooking.doctorName ? `Appointment with ${updatedBooking.doctorName} updated successfully!` : "Appointment updated successfully!"}`);
+
+  if (close) close();
+};
+
+//booking delete
+export const handleDeleteBooking = async (id) => {
+  // calling api to delete bookings
+  const res = await deleteBookings(id);
+
+  if (!res.success) {
+    toast.error(`${res.message || 'Failed to cancel'}! please try again..`);
+    return;
+  }
+
+  toast.success("Appointment canceled successfully!");
 };
