@@ -1,0 +1,13 @@
+'use server'
+
+import { headers } from "next/headers";
+import { auth } from "./auth";
+
+const getJwtToken = async () => {
+  const { token } = await auth.api.getToken({ headers: await headers() })
+  return token;
+}
+
+export default getJwtToken;
+
+

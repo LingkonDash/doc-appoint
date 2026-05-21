@@ -1,7 +1,13 @@
+import getJwtToken from "../getJwtToken";
+
 // get bookings by userid
-export const getBookings = async (uid) => {
+export const getBookings = async (uid, token) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${uid}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${uid}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    });
 
     if (!res.ok) {
       return {
@@ -28,12 +34,13 @@ export const getBookings = async (uid) => {
 };
 
 // add bookings 
-export const postBookings = async (bookingData) => {
+export const postBookings = async (bookingData, token) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(bookingData)
     });
@@ -63,12 +70,13 @@ export const postBookings = async (bookingData) => {
 };
 
 // update bookings
-export const updateBookings = async (id, updatedBooking) => {
+export const updateBookings = async (id, updatedBooking, token) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${id}`, {
-      method: 'PATCH', 
+      method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedBooking)
     });
@@ -98,10 +106,13 @@ export const updateBookings = async (id, updatedBooking) => {
 };
 
 // delete bookings
-export const deleteBookings = async (id) => {
+export const deleteBookings = async (id, token) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${id}`, {
       method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`
+      }
     });
 
     if (!res.ok) {

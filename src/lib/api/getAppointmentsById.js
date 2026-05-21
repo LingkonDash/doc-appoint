@@ -1,8 +1,12 @@
 
-const getAppointmentsById = async (id) => {
+const getAppointmentsById = async (id, token) => {
   try {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    });
 
     if (!res.ok) {
       return {
@@ -14,7 +18,7 @@ const getAppointmentsById = async (id) => {
 
     const data = await res.json();
 
-    if(!data) return {
+    if (!data) return {
       success: false,
       message: 'Data Not Found'
     }

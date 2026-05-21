@@ -5,7 +5,7 @@ import DeleteBookingModal from "./DeleteBookingModal";
 
 
 
-const BookingCards = ({ booking }) => {
+const BookingCards = ({ booking, token }) => {
   const { _id, doctorName, patientName, appointmentDate, appointmentTime, reason, gender, bloodGroup, phone } = booking;
 
   const detailsSteps = [
@@ -56,9 +56,9 @@ const BookingCards = ({ booking }) => {
       {/* Actions */}
       <div className="flex gap-2">
 
-        <BookingUpdateModal booking={booking}/>
+        <BookingUpdateModal booking={booking} token={token}/>
 
-        <DeleteBookingModal booking={booking}/>
+        <DeleteBookingModal booking={booking} token={token}/>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { MapPin, Clock, Briefcase, Star, Building2, BanknoteIcon, ShieldCheck, G
 import BookAppointModal from '@/components/shared/BookAppointModal';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import getJwtToken from '@/lib/getJwtToken';
 
 
 export const metadata = {
@@ -14,7 +15,8 @@ const DocDetailsPage = async ({ params }) => {
   const { id } = await params;
   const session = await auth.api.getSession({ headers: await headers() });
 
-  const res = await getAppointmentsById(id);
+  const token = await getJwtToken();
+  const res = await getAppointmentsById(id, token);
 
   // ── Error state ──
   if (!res.success) {
@@ -118,7 +120,7 @@ const DocDetailsPage = async ({ params }) => {
             </div>
 
             {/* Book appoint modal */}
-            <BookAppointModal doctorName={name} doctorId={id} userEmail={session?.user?.email} userID={session?.user?.id} />
+            <BookAppointModal doctorName={name} doctorId={id} userEmail={session?.user?.email} userID={session?.user?.id} token={token} />
           </div>
         </div>
       </div>

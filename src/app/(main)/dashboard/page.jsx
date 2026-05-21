@@ -1,6 +1,7 @@
 import DashboardClient from '@/components/shared/DashboardClient';
 import { getBookings } from '@/lib/api/bookingApi';
 import { auth } from '@/lib/auth';
+import getJwtToken from '@/lib/getJwtToken';
 import { headers } from 'next/headers';
 
 export const metadata = {
@@ -10,10 +11,13 @@ export const metadata = {
 const DashboardPage = async () => {
 
   const session = await auth.api.getSession({ headers: await headers() })
-  const res = await getBookings(session?.user?.id);
+
+  const token = await getJwtToken();
+
+  const res = await getBookings(session?.user?.id, token);
 
   if (!res.success) {
-    return <div>something went wrong!</div>
+    return <div className='my-20 text-center text-red-400 '>something went wrong! error message : <strong>{res.message}</strong></div>
   }
 
   const bookings = res?.data;
@@ -33,7 +37,7 @@ const DashboardPage = async () => {
           </p>
           <h1 className="text-[30px] font-bold text-primary">Dashboard</h1>
         </div>
-        <DashboardClient bookings={bookings} user={user} />
+        <DashboardClient bookings={bookings} user={user} token={token} />
       </div>
     </div>
   );

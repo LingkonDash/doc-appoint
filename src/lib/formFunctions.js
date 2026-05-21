@@ -55,14 +55,14 @@ export const onSignupSubmit = async (e, router) => {
   setTimeout(() => router.push("/login"), 1000);
 };
 
-export const handleBookingSubmit = async (e, close) => {
+export const handleBookingSubmit = async (e, close, token) => {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
   const bookingData = Object.fromEntries(formData.entries());
 
   // calling api to post bookings
-  const res = await postBookings(bookingData);
+  const res = await postBookings(bookingData, token);
 
   if (!res.success) {
     toast.error(`${res.message || 'Something went wrong'}! please try again..`);
@@ -74,7 +74,7 @@ export const handleBookingSubmit = async (e, close) => {
 };
 
 // booking update
-export const handleUpdateBooking = async (e, close, id, router) => {
+export const handleUpdateBooking = async (e, close, id, router, token) => {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
@@ -82,7 +82,7 @@ export const handleUpdateBooking = async (e, close, id, router) => {
 
 
   // calling api to update bookings
-  const res = await updateBookings(id, updatedBooking);
+  const res = await updateBookings(id, updatedBooking, token);
 
   if (!res.success) {
     toast.error(`${res.message || 'Failed to update'}! please try again..`);
@@ -99,9 +99,9 @@ export const handleUpdateBooking = async (e, close, id, router) => {
 };
 
 // booking delete
-export const handleDeleteBooking = async (close, id, router) => {
+export const handleDeleteBooking = async (close, id, router, token) => {
   // calling api to delete bookings
-  const res = await deleteBookings(id);
+  const res = await deleteBookings(id, token);
 
   if (!res.success) {
     toast.error(`${res.message || 'Failed to cancel'}! please try again..`);

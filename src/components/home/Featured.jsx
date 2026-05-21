@@ -2,6 +2,7 @@ import getFeaturedDoc from '@/lib/api/getFeaturedDoc';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import DoctorCard from '../shared/DoctorCard';
+import getJwtToken from '@/lib/getJwtToken';
 
 const Featured = async () => {
   const data = await getFeaturedDoc();
@@ -40,13 +41,13 @@ const Featured = async () => {
 
       {/* ── Cards grid ── */}
       {
-        !data.success ? <div className='text-center py-10 text-red-400 '>Something went wrong while fetching featured data please contact support... <br /> error message: <span className='font-medium'>{`{ ${data.message} }`}</span></div> 
-        :
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {featuredData.map((doc) => (
-          <DoctorCard key={doc._id} data={doc} />
-        ))}
-      </div>
+        !data.success ? <div className='text-center py-10 text-red-400 '>Something went wrong while fetching featured data please contact support... <br /> error message: <span className='font-medium'>{`{ ${data.message} }`}</span></div>
+          :
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featuredData.map((doc) => (
+              <DoctorCard key={doc._id} data={doc} />
+            ))}
+          </div>
       }
 
     </section>

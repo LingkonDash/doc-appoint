@@ -6,7 +6,7 @@ import { Trash2, AlertTriangle, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const DeleteBookingModal = ({ booking }) => {
+const DeleteBookingModal = ({ booking, token }) => {
   const router = useRouter();
   const { _id, doctorName, patientName } = booking || {};
 
@@ -125,7 +125,7 @@ const DeleteBookingModal = ({ booking }) => {
                     Keep It
                   </Button>
                   <Button
-                    onClick={() => handleDeleteBooking(close, _id, router)}
+                    onClick={() => handleDeleteBooking(close, _id, router, token)}
                     className="flex-1 py-2.5 rounded-xl text-[13px] font-semibold transition-opacity hover:opacity-90 cursor-pointer mt-4"
                     style={{ background: "#dc2626", color: "#fff" }}
                   >

@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 
 import React from "react";
 
-export default function BookingUpdateModal({ booking }) {
+export default function BookingUpdateModal({ booking, token }) {
   const {
     _id,
     doctorName,
@@ -102,7 +102,7 @@ export default function BookingUpdateModal({ booking }) {
                 </Modal.Header>
 
                 <form
-                  onSubmit={(e) => handleUpdateBooking(e, close, _id, router)}
+                  onSubmit={(e) => handleUpdateBooking(e, close, _id, router, token)}
                   className="flex flex-col flex-1 overflow-hidden"
                 >
                   <Modal.Body className="px-6 py-3 flex flex-col gap-4 overflow-y-auto flex-1 base-scrollbar">

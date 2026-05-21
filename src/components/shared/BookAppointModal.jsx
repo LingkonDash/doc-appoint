@@ -5,7 +5,7 @@ import { Button, Input, Label, Modal, TextField, Select, ListBox, FieldError } f
 import { CalendarCheck, User, Mail, Phone, Calendar, Clock, FileText, ChevronDown, Droplets } from "lucide-react";
 import React from "react";
 
-export default function BookAppointModal({ doctorName, doctorId, userEmail, userID }) {
+export default function BookAppointModal({ doctorName, doctorId, userEmail, userID, token }) {
 
   const fieldClasses = "flex flex-col gap-1 w-full";
   const labelClasses = "text-[11px] font-bold uppercase tracking-wider text-primary/80 ml-1";
@@ -36,7 +36,7 @@ export default function BookAppointModal({ doctorName, doctorId, userEmail, user
                   </p>
                 </Modal.Header>
 
-                <form onSubmit={(e) => handleBookingSubmit(e, close)} className="flex flex-col flex-1 overflow-hidden">
+                <form onSubmit={(e) => handleBookingSubmit(e, close, token)} className="flex flex-col flex-1 overflow-hidden">
 
                   <input type="hidden" name="doctorId" value={doctorId || ""} />
                   <input type="hidden" name="userID" value={userID || ""} />

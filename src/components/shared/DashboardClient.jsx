@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const TAB_BOOKINGS = "bookings";
 const TAB_PROFILE = "profile";
 
-const DashboardClient = ({ bookings, user }) => {
+const DashboardClient = ({ bookings, user, token }) => {
   const [tab, setTab] = useState(TAB_BOOKINGS);
 
   const tabToggles = [
@@ -74,7 +74,7 @@ const DashboardClient = ({ bookings, user }) => {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {bookings.map((b) => (
-                    <BookingCards key={b._id} booking={b} />
+                    <BookingCards key={b._id} booking={b} token={token} />
                   ))}
                 </div>
               )}
