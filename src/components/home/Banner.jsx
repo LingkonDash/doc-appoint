@@ -10,7 +10,7 @@ import avatar from "@/images/avatar.png";
 import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 const Banner = () => {
   const slides = [
@@ -135,11 +135,10 @@ const Banner = () => {
           </div>
 
           <Swiper
-            modules={[Autoplay, Pagination]}
+            modules={[Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
             breakpoints={{
               640: { slidesPerView: 1.3 },
               768: { slidesPerView: 2 },
