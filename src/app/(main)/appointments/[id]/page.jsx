@@ -77,7 +77,6 @@ const DocDetailsPage = async ({ params }) => {
             </div>
           </div>
 
-
           <div className="p-8 flex flex-col justify-between">
             <div>
               <p

@@ -52,7 +52,6 @@ const Banner = () => {
       <div className="pt-10 bg-linear-to-t from-secondary to-white text-primary px-5 md:px-10 lg:px-15">
         <div className="grid md:grid-cols-2 max-w-380 mx-auto">
 
-          {/* LEFT */}
           <motion.div
             className="space-y-6 pb-5 place-self-center"
             initial={{ opacity: 0, x: -40 }}
@@ -103,7 +102,6 @@ const Banner = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT */}
           <motion.div
             className="mx-auto w-fit place-self-end"
             initial={{ opacity: 0, x: 40 }}

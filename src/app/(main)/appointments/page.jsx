@@ -12,7 +12,6 @@ const AppointmentsPage = async () => {
   return (
     <section className="min-h-screen">
 
-      {/* ── Page hero banner ── */}
       <div className="py-14 px-10 text-center">
         <p
           className="text-[11px] font-bold uppercase tracking-widest mb-3"
@@ -32,7 +31,6 @@ const AppointmentsPage = async () => {
         </p>
       </div>
 
-      {/* ── Search + grid ── */}
       {
         !data.success ? <div className='text-center py-10 text-red-400 '>Something went wrong while fetching featured data please contact support... <br /> error message: <span className='font-medium'>{`{ ${data.message} }`}</span></div>
           :
